@@ -1,4 +1,6 @@
-pub mod helper;
+mod helper;
+use crate::helper::*;
+use std::process;
 #[derive(Debug)]
 pub struct Work {
     pub id: i32,
@@ -42,13 +44,13 @@ impl Group {
     }
 }
 
-pub fn list_group(groups:&Vec<Group>) {
-    for group in  groups{
+pub fn list_group(groups: &Vec<Group>) {
+    for group in groups {
         println!("{}", group.name);
     }
 }
 
-pub fn list_all(groups:&Vec<Group>) {
+pub fn list_all(groups: &Vec<Group>) {
     for group in groups {
         println!("group name: {}", group.name);
         println!("works:");
@@ -58,7 +60,7 @@ pub fn list_all(groups:&Vec<Group>) {
         println!("********************************************")
     }
 }
-pub fn list_work(groups: &Vec<Group>, name : &str) {
+pub fn list_work(groups: &Vec<Group>, name: &str) {
     for group in groups {
         if group.name.to_string() == name.to_string() {
             for work in &group.works {
@@ -81,6 +83,37 @@ pub fn add_work_in_group(groups: &mut Vec<Group>, name: &str, new_work: &str) {
     }
 }
 
+pub fn run_command(mut groups: Vec<Group>) {
+    loop {
+        let command = prompt("command");
+        let command: Vec<&str> = command.split(" ").collect();
+
+        match command[0] {
+            "create" => match command[1] {
+                "group" => groups.push(Group::new(command[2].to_string())),
+                "work" => add_work_in_group(&mut groups, command[2], command[3]),
+                _ => println!("cant understand what's {}", command[1]),
+            },
+            "list" => match command[1] {
+                "group" => list_group(&groups),
+                "work" => list_work(&groups, command[2]),
+                "all" => list_all(&groups),
+                _ => continue,
+            },
+            "remove" => match command[1] {
+                "group" => println!("list group"),
+                "work" => println!("list work"),
+                "all" => println!("list everything"),
+                _ => println!("please specify what to delete"),
+            },
+            "exit" => {
+                println!("bye bye");
+                process::exit(1)
+            }
+            _ => println!("wrong command, try help or h"),
+        }
+    }
+}
 #[cfg(test)]
 mod test {
     use super::*;
@@ -117,9 +150,5 @@ mod test {
         test_group.show_works();
         assert_eq!(test_group.works.len(), 1);
     }
-
-    // #[test]
-    // fn adding_work() {
-    //     assert_eq!(result, 4);
-    // }
 }
+

@@ -9,3 +9,4 @@ pub fn prompt(message: &str) -> String {
         .expect("Error while prompting user");
     buf.trim().to_string()
 }
+
