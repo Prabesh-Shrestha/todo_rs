@@ -1,5 +1,5 @@
+pub mod helper;
 #[derive(Debug)]
-
 pub struct Work {
     pub id: i32,
     pub created: String,
@@ -18,6 +18,7 @@ impl Work {
     }
 }
 
+#[derive(Debug)]
 pub struct Group {
     pub name: String,
     pub works: Vec<Work>,
@@ -31,15 +32,52 @@ impl Group {
         }
     }
     pub fn show_works(&self) {
-        print!("{:#?}", &self.works);
+        println!("{:#?}", &self.works);
     }
-
     pub fn add_work(&mut self, new_work: Work) {
         self.works.push(new_work)
     }
-
     pub fn remove_work(&mut self, id: i32) {
         self.works.retain(|x| x.id != id);
+    }
+}
+
+pub fn list_group(groups:&Vec<Group>) {
+    for group in  groups{
+        println!("{}", group.name);
+    }
+}
+
+pub fn list_all(groups:&Vec<Group>) {
+    for group in groups {
+        println!("group name: {}", group.name);
+        println!("works:");
+        for work in &group.works {
+            println!("{}", work.detail);
+        }
+        println!("********************************************")
+    }
+}
+pub fn list_work(groups: &Vec<Group>, name : &str) {
+    for group in groups {
+        if group.name.to_string() == name.to_string() {
+            for work in &group.works {
+                println!("{}", work.detail)
+            }
+        }
+    }
+}
+
+pub fn add_work_in_group(groups: &mut Vec<Group>, name: &str, new_work: &str) {
+    for group in groups {
+        if group.name.to_string() == name.to_string() {
+            group.add_work(Work::new(
+                1,
+                String::from("sussy baka"),
+                String::from("sussy baka"),
+                new_work.to_string(),
+            ))
+        }
     }
 }
 
