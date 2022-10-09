@@ -48,6 +48,7 @@ pub fn list_group(groups: &Vec<Group>) {
     for group in groups {
         println!("{}", group.name);
     }
+    println!("********************************************")
 }
 
 pub fn list_all(groups: &Vec<Group>) {
@@ -68,6 +69,8 @@ pub fn list_work(groups: &Vec<Group>, name: &str) {
             }
         }
     }
+
+    println!("********************************************")
 }
 
 pub fn add_work_in_group(groups: &mut Vec<Group>, name: &str, new_work: &str) {
