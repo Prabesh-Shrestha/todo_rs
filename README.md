@@ -15,7 +15,7 @@ todo application created using Rust.
 2. Clone the forked repository to your local machine.
 
 ```markdown
-git clone https://github.com/your-username/todo_rs.git
+git clone https://github.com/Prabesh-Shrestha/todo_rs
 ```
 
 3. change the present working directory
