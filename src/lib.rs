@@ -113,7 +113,22 @@ pub fn run_command(mut groups: Vec<Group>) {
                 println!("bye bye");
                 process::exit(1)
             }
-            _ => println!("wrong command, try help or h"),
+            "help" => println!("create: create a group of work, or create the work
+                                create group 'groupname' // creates the group
+                                create work 'groupname' 'work'
+                                
+                                list: lists the group or work
+                                list group // lists the created groups
+                                list work 'groupname' // lists the work of that group
+                                list all // lists the work of all groups
+
+                                remove: removes groups and list 
+                                remove group // removes the group 
+                                remove work 'groupname' 'work' // removes the 'work' from 'groupname'
+                                remove all // removes everything 
+                                "
+                                ),
+            _ => println!("wrong command, try help"),
         }
     }
 }
